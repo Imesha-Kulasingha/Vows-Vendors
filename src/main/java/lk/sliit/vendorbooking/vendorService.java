@@ -1,0 +1,234 @@
+package lk.sliit.vendorbooking;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class vendorService {
+
+    public void registerVendor(Vendor vendor1){
+        try{
+            String query = "INSERT INTO vendorregistration VALUES ('"
+                    + vendor1.getVendorNIC() + "', '"
+                    + vendor1.getVendorName() + "', '"
+                    + vendor1.getVendorPassword() + "', '"
+                    + vendor1.getVendorEmail() + "', '"
+                    + vendor1.getVendorAddress() + "', '"
+                    + vendor1.getVendorContactName() + "', '"
+                    + vendor1.getVendorPhone() + "', '"
+                    + vendor1.getBizName() + "', '"
+                    + vendor1.getBizAddress() + "', '"
+                    + vendor1.getBizLicenceNumber() + "', '"
+                    + vendor1.getBizCategory() + "', '"
+                    + vendor1.getSocialMediaLinks() + "', '"
+                    + vendor1.getServiceDescription() + "', '"
+                    + vendor1.getPriceRange() + "', '"
+                    + vendor1.getAvailableDays() + "', '"
+                    + vendor1.getAvailableTime() + "', '"
+                    + vendor1.getServiceArea() + "', '"
+                    + vendor1.getSpecialPackages() + "', '"
+                    + vendor1.getPortfolio() + "', '"
+                    + vendor1.getTnc() + "', '"
+                    + vendor1.getPictures() + "', '"
+                    + vendor1.getSpecialRequirements() + "')";
+
+            Statement s1= DBconnect.getConnection().createStatement();
+            System.out.println("Executing query: " + query);
+            s1.executeUpdate(query);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //show info
+    public List<Vendor> getAllVendors() {
+        List<Vendor> list = new ArrayList<>();
+
+        try (Connection conn = DBconnect.getConnection();
+             Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery("SELECT * FROM vendorregistration")) {
+
+            while (rs.next()) {
+                Vendor v = new Vendor();
+
+                // Vendor Info
+                v.setVendorNIC(rs.getString("vendorID"));
+                v.setVendorName(rs.getString("Vname"));
+                v.setVendorPassword(rs.getString("password"));
+                v.setVendorEmail(rs.getString("email"));
+                v.setVendorAddress(rs.getString("address"));
+                v.setVendorContactName(rs.getString("contactNumber"));
+                v.setVendorPhone(rs.getString("contactPerson"));
+
+                // Business Details
+                v.setBizName(rs.getString("bizName"));
+                v.setBizAddress(rs.getString("bizAddress"));
+                v.setBizLicenceNumber(rs.getString("bizLicenceNumber"));
+                v.setBizCategory(rs.getString("bizCategory"));
+                v.setSocialMediaLinks(rs.getString("socialMediaLinks"));
+
+                // Services
+                v.setServiceDescription(rs.getString("serviceDescription"));
+                v.setPriceRange(rs.getInt("priceRange"));
+                v.setAvailableDays(rs.getString("availableDays"));
+                v.setAvailableTime(rs.getString("availableTime"));
+                v.setServiceArea(rs.getString("serviceArea"));
+                v.setSpecialPackages(rs.getString("specialPackages"));
+
+                // Portfolio
+                v.setPortfolio(rs.getString("portfolio"));
+                v.setTnc(rs.getString("tncDoc"));
+                v.setPictures(rs.getString("picture"));
+
+                // Additional Requirements
+                v.setSpecialRequirements(rs.getString("specialRequirements"));
+                // Debugging: print out vendor details
+                System.out.println("Retrieved Vendor: " + v.getVendorName());
+
+                list.add(v);
+            }
+
+        } catch (SQLException e) {
+            // Log the exception or rethrow it as needed
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        return list;
+    }
+    // Validate Vendor by NIC, Email, and Password
+    public boolean validateVendor(Vendor vendor2) {
+        System.out.println("Establishing database connection...");
+        try {
+            String query = "SELECT * FROM vendorregistration WHERE vendorID = '" + vendor2.getVendorNIC() +
+                    "' AND email = '" + vendor2.getVendorEmail() +
+                    "' AND password = '" + vendor2.getVendorPassword() + "'";
+
+            Statement s2 = DBconnect.getConnection().createStatement();
+            if (s2 != null) {
+                System.out.println("Database connection successful.");
+            } else {
+                System.out.println("Failed to establish database connection.");
+            }
+            ResultSet rs = s2.executeQuery(query);
+
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Get Vendor by Email
+    public Vendor getVendorByEmail(String email) {
+        Vendor specificVendor = null;
+        try {
+            String query = "SELECT * FROM vendorregistration WHERE email = '" + email + "'";
+            System.out.println("Executing SQL: " + query + " with email: " + email);
+            Statement stmt = DBconnect.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            if (rs.next()) {
+                specificVendor = new Vendor();
+
+                // Vendor Info
+                specificVendor.setVendorNIC(rs.getString("vendorID"));
+                specificVendor.setVendorName(rs.getString("Vname"));
+                specificVendor.setVendorPassword(rs.getString("password"));
+                specificVendor.setVendorEmail(rs.getString("email"));
+                specificVendor.setVendorAddress(rs.getString("address"));
+                specificVendor.setVendorContactName(rs.getString("contactPerson"));
+                specificVendor.setVendorPhone(rs.getString("contactNumber"));
+
+                // Business Details
+                specificVendor.setBizName(rs.getString("bizName"));
+                specificVendor.setBizAddress(rs.getString("bizAddress"));
+                specificVendor.setBizLicenceNumber(rs.getString("bizLicenceNumber"));
+                specificVendor.setBizCategory(rs.getString("bizCategory"));
+                specificVendor.setSocialMediaLinks(rs.getString("socialMediaLinks"));
+
+                // Services
+                specificVendor.setServiceDescription(rs.getString("serviceDescription"));
+                specificVendor.setPriceRange(rs.getInt("priceRange"));
+                specificVendor.setAvailableDays(rs.getString("availableDays"));
+                specificVendor.setAvailableTime(rs.getString("availableTime"));
+                specificVendor.setServiceArea(rs.getString("serviceArea"));
+                specificVendor.setSpecialPackages(rs.getString("specialPackages"));
+
+                // Portfolio
+                specificVendor.setPortfolio(rs.getString("portfolio"));
+                specificVendor.setTnc(rs.getString("tncDoc"));
+                specificVendor.setPictures(rs.getString("picture"));
+
+                // Additional Requirements
+                specificVendor.setSpecialRequirements(rs.getString("specialRequirements"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return specificVendor;
+    }
+
+    public static List<Vendor> getVendorsByCategory(String category) {
+        List<Vendor> vendors = new ArrayList<>();
+
+        try {
+            // Load the MySQL JDBC Driver (optional newer versions autoload)
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+
+            String query = "SELECT * FROM vendorregistration WHERE bizCategory = '" + category + "'";
+            System.out.println("Executing SQL: " + query);
+            Statement stmt = DBconnect.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                System.out.println("Vendor Name: " + rs.getString("Vname"));
+                Vendor vendor = new Vendor();
+
+                vendor.setVendorNIC(rs.getString("vendorID"));
+                vendor.setVendorName(rs.getString("Vname"));
+                vendor.setVendorEmail(rs.getString("email"));
+                vendor.setVendorAddress(rs.getString("address"));
+                vendor.setVendorPhone(rs.getString("contactNumber"));
+                vendor.setVendorContactName(rs.getString("contactPerson"));
+
+                vendor.setBizName(rs.getString("bizName"));
+                vendor.setBizAddress(rs.getString("bizAddress"));
+                vendor.setBizLicenceNumber(rs.getString("bizLicenceNumber"));
+                vendor.setBizCategory(rs.getString("bizCategory"));
+                vendor.setSocialMediaLinks(rs.getString("socialMediaLinks"));
+
+                vendor.setServiceDescription(rs.getString("serviceDescription"));
+                vendor.setPriceRange(rs.getInt("priceRange"));
+                vendor.setAvailableDays(rs.getString("availableDays"));
+                vendor.setAvailableTime(rs.getString("availableTime"));
+                vendor.setServiceArea(rs.getString("serviceArea"));
+                vendor.setSpecialPackages(rs.getString("specialPackages"));
+
+                vendor.setPortfolio(rs.getString("portfolio"));
+                vendor.setTnc(rs.getString("tncDoc"));
+                vendor.setPictures(rs.getString("picture"));
+
+                vendor.setSpecialRequirements(rs.getString("specialRequirements"));
+
+                vendors.add(vendor);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return vendors;
+    }
+
+}
+
