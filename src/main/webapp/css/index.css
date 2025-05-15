@@ -1,5 +1,13 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
+
+    background-image: url('Pictures/tempwall.jpg');  /* Replace with your image path */
+    background-size: cover;                  /* Makes image cover the whole area */
+    background-repeat: no-repeat;            /* Prevents tiling */
+    background-position: center;             /* Center the image */
+    background-attachment: fixed;
+
+
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f6f8;
     line-height: 1.6;
