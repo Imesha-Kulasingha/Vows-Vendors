@@ -35,6 +35,7 @@ public class userLoginServlet extends HttpServlet {
 
              HttpSession session = request.getSession();
              session.setAttribute("userEmail", userNew.getEmail());
+             session.setAttribute("userEmail", userNew.getEmail());
 
              User specificUser = us.getUserByEmail(userNew.getEmail());
              //request.setAttribute("specificUser", specificUser);

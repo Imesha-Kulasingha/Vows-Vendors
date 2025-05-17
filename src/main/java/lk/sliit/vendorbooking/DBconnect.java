@@ -10,7 +10,7 @@ public class DBconnect {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/weddingvendordb?characterEncoding=utf8",username,password);
-
+        System.out.println("Successfully connected to the database.");
         return con;
 
 
