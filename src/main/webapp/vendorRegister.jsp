@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1 style="text-align: center;">Vendor Management System</h1>
+<h1 style="text-align: center;">Vendor Registration</h1>
 
 <form action = "addVendor" method="post">
 
@@ -59,8 +59,11 @@
         <input type="radio" id="MakeupArtist" name="vendorType" value="Makeup Artist and Hair Stylist">
         <label for="MakeupArtist">Makeup Artist and Hair Stylist</label><br>
 
-        <input type="radio" id="DressSuitProvider" name="vendorType" value="Dress and Suit Provider">
-        <label for="DressSuitProvider">Dress and Suit Provider</label><br>
+        <input type="radio" id="DressProvider" name="vendorType" value="DressProvider">
+        <label for="DressProvider">Dress Providers</label><br>
+
+        <input type="radio" id="SuitProvider" name="vendorType" value="SuitProvider">
+        <label for="SuitProvider">Suit Providers</label><br>
 
         <input type="radio" id="Photography" name="vendorType" value="Photography">
         <label for="Photography">Photography</label><br>
@@ -83,33 +86,102 @@
 
         <label for="priceRange">Price Range:</label>
         <select name="priceRange" id="priceRange">
-            <option value="below10k">10,000 or below</option>
-            <option value="10">10000</option>
+            <option value="10000">10 000 or below</option>
+            <option value="20000">10 000 - 20 000</option>
+            <option value="30000">20 000 - 30 000</option>
+            <option value="40000">30 000 - 40 000</option>
+            <option value="50000">40 000 - 50 000</option>
+            <option value="60000">50 000 - 60 000</option>
+            <option value="70000">60 000 - 70 000</option>
+            <option value="80000">70 000 - 80 000</option>
+            <option value="90000">80 000 - 90 000</option>
+            <option value="100000">90 000 - 100 000</option>
+            <option value="200000">100 000 - 200 000</option>
+            <option value="300000">200 000 - 300 000</option>
+            <option value="400000">300 000 - 400 000</option>
+            <option value="500000">400 000 - 500 000</option>
+            <option value="above500000">Above 500 000</option>
         </select><br>
 
-        <label for="availabilityDays">Availability (Dates and Times):</label><br>
-        <input type="checkbox" id="availabilityDays" name="monday" value="monday">
-        <label for="availabilityDays">Monday</label><br>
+        <fieldset>
+            <legend>Available Days</legend>
 
-        <label for="from">From:</label>
-        <input type="number" id ="from"name="from" min="1" max="12">
-        <select name="fromTime">
-            <option value="am">AM</option>
-            <option value="pm">PM</option>
-        </select>
+        <input type="checkbox" id="monday" name="availabilityDays" value="Monday">
+        <label for="monday">Monday</label><br>
 
-        <label for="to">To:</label>
-        <input type="number" id ="to" name="to" min="1" max="12">
-        <select name="toTime">
-            <option value="am">AM</option>
-            <option value="pm">PM</option>
-        </select><br>
+        <input type="checkbox" id="tuesday" name="availabilityDays" value="Tuesday">
+        <label for="tuesday">Tuesday</label><br>
+
+        <input type="checkbox" id="wednesday" name="availabilityDays" value="Wednesday">
+        <label for="wednesday">Wednesday</label><br>
+
+        <input type="checkbox" id="thursday" name="availabilityDays" value="Thursday">
+        <label for="thursday">Thursday</label><br>
+
+        <input type="checkbox" id="friday" name="availabilityDays" value="Friday">
+        <label for="friday">Friday</label><br>
+
+        <input type="checkbox" id="saturday" name="availabilityDays" value="Saturday">
+        <label for="saturday">Saturday (Weekend)</label><br>
+
+        <input type="checkbox" id="sunday" name="availabilityDays" value="Sunday">
+        <label for="sunday">Sunday (Weekend)</label><br>
+
+        </fieldset>
+
+
+        <div class="time-container">
+            <div class="time">
+                <label for="from">From:</label>
+                <input type="number" id="from" name="from" min="1" max="12" />
+                <select name="fromTime" id="fromTime" style="font-size: 10px; padding: 2px 4px; width: 60px; box-sizing: border-box;" >
+                    <option value="am">AM</option>
+                    <option value="pm">PM</option>
+                </select>
+            </div>
+
+            <div class="time">
+                <label for="to">To:</label>
+                <input type="number" id="to" name="to" min="1" max="12" />
+                <select name="toTime" id="toTime" style="font-size: 10px; padding: 2px 4px; width: 60px; box-sizing: border-box;">
+                    <option value="am">AM</option>
+                    <option value="pm">PM</option>
+                </select>
+            </div>
+        </div>
+
+
+
 
         <label for="serviceArea">Service Area:</label>
         <select name="serviceArea" id="serviceArea">
+            <option value="ampara">Ampara District</option>
+            <option value="anuradhapura">Anuradhapura District</option>
+            <option value="badulla">Badulla District</option>
+            <option value="batticaloa">Batticaloa District</option>
             <option value="colombo">Colombo District</option>
+            <option value="galle">Galle District</option>
+            <option value="gampaha">Gampaha District</option>
+            <option value="hambantota">Hambantota District</option>
+            <option value="jaffna">Jaffna District</option>
+            <option value="kalutara">Kalutara District</option>
             <option value="kandy">Kandy District</option>
+            <option value="kegalle">Kegalle District</option>
+            <option value="kilinochchi">Kilinochchi District</option>
+            <option value="kurunegala">Kurunegala District</option>
+            <option value="mannar">Mannar District</option>
+            <option value="matale">Matale District</option>
+            <option value="matara">Matara District</option>
+            <option value="monaragala">Monaragala District</option>
+            <option value="mullaitivu">Mullaitivu District</option>
+            <option value="nuwaraeliya">Nuwara Eliya District</option>
+            <option value="polonnaruwa">Polonnaruwa District</option>
+            <option value="puttalam">Puttalam District</option>
+            <option value="ratnapura">Ratnapura District</option>
+            <option value="trincomalee">Trincomalee District</option>
+            <option value="vavuniya">Vavuniya District</option>
         </select><br>
+
 
         <label for="specialPackages">Special Packages or Discounts:</label><br>
         <textarea id="specialPackages" name="specialPackages" rows="5" cols="40" placeholder="Enter offer details"></textarea><br>

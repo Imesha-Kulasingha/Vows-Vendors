@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="css/signIn.css">
 </head>
 <body>
 <div class="container">
@@ -16,9 +16,12 @@
         <a href="vendorRegister.jsp"><button>Register as Vendor</button></a>
     </div>
 
+
+    <p>Already have an account?</p>
     <div class="section">
-        <h2>Sign Up</h2>
-        <a href="signup.jsp"><button>Sign Up</button></a>
+        <h2>Login</h2>
+        <a href="userLogin.jsp"><button>Login as a User</button></a>
+        <a href="vendorLogin.jsp"><button>Login as a Vendor</button></a>
     </div>
 </div>
 </body>

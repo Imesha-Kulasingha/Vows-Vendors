@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Vendor List</title>
+    <link rel="stylesheet" type="text/css" href="css/vendor-list.css">
 
     <style>
         body {
@@ -55,15 +56,31 @@
 
 <h2>Choose a Vendor</h2>
 
+
+<form method="get" action="vendorCategoryList">
+    <label for="sortBy">Sort by:</label>
+    <select name="sortBy" id="sortBy" onchange="this.form.submit()">
+        <option value="">-- Select --</option>
+        <option value="priceAsc" <%= "priceAsc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Price (Low to High)</option>
+        <option value="priceDesc" <%= "priceDesc".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Price (High to Low)</option>
+    </select>
+    <input type="hidden" name="category" value="<%= request.getParameter("category") %>">
+</form>
+
+
+
 <div class="vendor-list">
     <%
         List<Vendor> vendorList = (List<Vendor>) request.getAttribute("vendorList");
         if (vendorList != null && !vendorList.isEmpty()) {
             for (Vendor vendor : vendorList) {
     %>
-    <a class="vendor-card" href="vendorDetails.jsp?vendorName=<%= vendor.getVendorName() %>">
-        <h3><%= vendor.getVendorName() %></h3>
+    <a class="vendor-card" href="specificVendorDetails.jsp?email=<%= vendor.getVendorEmail() %>">
+
+        <h3><%= vendor.getBizName()%></h3>
+        <p><%= vendor.getVendorName() %></p>
         <p><%= vendor.getBizCategory() %></p>
+
     </a>
     <%
         }

@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -40,7 +41,10 @@ public class vendorLoginServlet extends HttpServlet {
         if(status) {
             // Get the vendor details by email
             Vendor specificVendor = vs.getVendorByEmail(vendorNew.getVendorEmail());
-            request.setAttribute("specificVendor", specificVendor);
+            //request.setAttribute("specificVendor", specificVendor);
+            HttpSession session = request.getSession();
+            session.setAttribute("vendorEmail", vendorNew.getVendorEmail());
+            session.setAttribute("specificVendor", specificVendor);
 
             // Forward to the vendor profile page
             System.out.println("Forwarding to vendorProfile.jsp");

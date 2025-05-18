@@ -11,6 +11,16 @@ public class Vendor {
     private String vendorPhone;
     private String vendorContactName;
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    private double price;
+
     public String getVendorNIC() {
         return this.vendorNIC;
     }

@@ -1,5 +1,23 @@
 <%@ page import="lk.sliit.vendorbooking.Vendor" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+
+<%
+    String vendorEmail = (String) session.getAttribute("vendorEmail");
+    if (vendorEmail == null) {
+        response.sendRedirect("vendorLogin.jsp");
+        return;
+    }
+
+    Vendor vendor = (Vendor) session.getAttribute("specificVendor");
+    if (vendor == null) {
+%>
+<h2 style="text-align:center; margin-top:50px;">No vendor data available.</h2>
+<%
+        return;
+    }
+%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +30,7 @@
 
 <%-- Retrieve the vendor object from the request attribute --%>
 <%
-    Vendor vendor = (Vendor) request.getAttribute("specificVendor");
+    Vendor vendor1 = (Vendor) request.getAttribute("specificVendor");
 %>
 
 <%-- Display the vendor's personal information --%>
@@ -49,6 +67,8 @@
 <%-- Display special requirements --%>
 <h3>Special Requirements</h3>
 <p><%= vendor.getSpecialRequirements() %></p>
+
+<a href="index.jsp">return to home page</a>
 
 </body>
 </html>

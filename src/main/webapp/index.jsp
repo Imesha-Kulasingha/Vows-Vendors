@@ -5,6 +5,7 @@
 <%
     String userEmail = (String) session.getAttribute("userEmail");
     String vendorEmail = (String) session.getAttribute("vendorEmail");
+
 %>
 
 
@@ -84,8 +85,6 @@
 
 
 
-
-
 </head>
 
 <body class="index-page">
@@ -120,17 +119,15 @@
     <div class="auth-buttons">
         <% if (userEmail != null) { %>
         <a href="userProfile.jsp"><button class="login-btn">My Profile</button></a>
-        <a href="logout.jsp"><button class="signup-btn">Logout</button></a>
+        <a href="logOut.jsp"><button class="signup-btn">Logout</button></a>
         <% } else if (vendorEmail != null) { %>
         <a href="vendorProfile.jsp"><button class="login-btn">My Profile</button></a>
-        <a href="logout.jsp"><button class="signup-btn">Logout</button></a>
+        <a href="logOut.jsp"><button class="signup-btn">Logout</button></a>
         <% } else { %>
         <a href="login.jsp"><button class="login-btn">Login</button></a>
         <a href="signIn.jsp"><button class="signup-btn">Sign Up</button></a>
         <% } %>
     </div>
-
-
 
 
 </header>

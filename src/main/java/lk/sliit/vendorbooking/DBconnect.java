@@ -13,9 +13,5 @@ public class DBconnect {
         System.out.println("Successfully connected to the database.");
         return con;
 
-
-
-
-
     }
 }

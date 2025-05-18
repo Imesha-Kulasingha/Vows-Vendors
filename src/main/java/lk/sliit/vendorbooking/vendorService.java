@@ -1,5 +1,7 @@
 package lk.sliit.vendorbooking;
 
+import lk.sliit.vendorbooking.DSA.VendorLinkedList;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,7 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class vendorService {
+public class vendorService implements VendorInterface {
+    private static VendorLinkedList vendorList = new VendorLinkedList();
 
     public void registerVendor(Vendor vendor1){
         try{
@@ -38,11 +41,48 @@ public class vendorService {
             Statement s1= DBconnect.getConnection().createStatement();
             System.out.println("Executing query: " + query);
             s1.executeUpdate(query);
+
+            // Add vendor to linked list after successful DB insert
+            vendorList.add(vendor1);
+
         }
         catch(Exception e){
             e.printStackTrace();
         }
     }
+    // ✅ Overloaded method with Business Details and Services
+    public void registerVendor(
+            String vendorName, String email, String password,
+            String bizName, String bizAddress, String bizLicenceNumber, String bizCategory, String socialMediaLinks,
+            String serviceDescription, int priceRange, String availableDays, String availableTime,
+            String serviceArea, String specialPackages
+    ) {
+        Vendor v = new Vendor();
+
+        // Basic info
+        v.setVendorName(vendorName);
+        v.setVendorEmail(email);
+        v.setVendorPassword(password);
+
+        // Business Details
+        v.setBizName(bizName);
+        v.setBizAddress(bizAddress);
+        v.setBizLicenceNumber(bizLicenceNumber);
+        v.setBizCategory(bizCategory);
+        v.setSocialMediaLinks(socialMediaLinks);
+
+        // Services
+        v.setServiceDescription(serviceDescription);
+        v.setPriceRange(priceRange);
+        v.setAvailableDays(availableDays);
+        v.setAvailableTime(availableTime);
+        v.setServiceArea(serviceArea);
+        v.setSpecialPackages(specialPackages);
+
+        // Register using existing method
+        registerVendor(v);
+    }
+
 
     //show info
     public List<Vendor> getAllVendors() {
@@ -90,6 +130,7 @@ public class vendorService {
                 System.out.println("Retrieved Vendor: " + v.getVendorName());
 
                 list.add(v);
+                return vendorList.getAll();
             }
 
         } catch (SQLException e) {
@@ -178,20 +219,19 @@ public class vendorService {
         return specificVendor;
     }
 
-    public static List<Vendor> getVendorsByCategory(String category) {
+    public List<Vendor> getVendorsByCategory(String category) {
         List<Vendor> vendors = new ArrayList<>();
 
-        try {
-            // Load the MySQL JDBC Driver (optional newer versions autoload)
-            //Class.forName("com.mysql.cj.jdbc.Driver");
+        // Build the query string with the category directly (note: be careful of SQL injection risk)
+        String query = "SELECT * FROM vendorregistration WHERE LOWER(TRIM(bizCategory)) = LOWER(TRIM('" + category + "'))";
 
-            String query = "SELECT * FROM vendorregistration WHERE bizCategory = '" + category + "'";
-            System.out.println("Executing SQL: " + query);
-            Statement stmt = DBconnect.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
+        // Use try-with-resources to ensure connection and statement are closed automatically
+        try (
+                Connection conn = DBconnect.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+        ) {
             while (rs.next()) {
-                System.out.println("Vendor Name: " + rs.getString("Vname"));
                 Vendor vendor = new Vendor();
 
                 vendor.setVendorNIC(rs.getString("vendorID"));
@@ -222,7 +262,6 @@ public class vendorService {
 
                 vendors.add(vendor);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

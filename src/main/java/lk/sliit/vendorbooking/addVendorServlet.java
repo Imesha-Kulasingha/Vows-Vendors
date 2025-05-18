@@ -57,7 +57,24 @@ public class addVendorServlet extends HttpServlet {
         Newvendor.setTnc(request.getParameter("tnc"));
         Newvendor.setPictures(request.getParameter("pictures"));
 
+        vendorService vs = new vendorService();
 
+        vs.registerVendor(
+                request.getParameter("vendorName"),
+                request.getParameter("vemail"),
+                request.getParameter("vpassword"),
+                request.getParameter("businessName"),
+                request.getParameter("bizAddress"),
+                request.getParameter("license"),
+                request.getParameter("vendorType"),
+                request.getParameter("socialMedia"),
+                request.getParameter("serviceDescription"),
+                Integer.parseInt(request.getParameter("priceRange")),
+                request.getParameter("availabilityDays"),
+                request.getParameter("availableTime"),
+                request.getParameter("serviceArea"),
+                request.getParameter("specialPackages")
+        );
 
         vendorService service = new vendorService();
         service.registerVendor(Newvendor);
