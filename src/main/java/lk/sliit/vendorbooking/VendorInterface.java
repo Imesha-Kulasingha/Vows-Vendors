@@ -1,5 +1,7 @@
 package lk.sliit.vendorbooking;
 
+import lk.sliit.vendorbooking.vendorClass.Vendor;
+
 import java.util.List;
 
 public interface VendorInterface {

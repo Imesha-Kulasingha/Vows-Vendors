@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.sliit.vendorbooking.DSA.VendorSort;
+import lk.sliit.vendorbooking.vendorClass.Vendor;
 
 import java.io.IOException;
 import java.util.List;

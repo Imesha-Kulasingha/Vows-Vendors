@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="lk.sliit.vendorbooking.Vendor" %>
+<%@ page import="lk.sliit.vendorbooking.vendorClass.Vendor" %>
 
 <html lang="en">
 <head>
@@ -77,9 +77,9 @@
     %>
     <a class="vendor-card" href="specificVendorDetails.jsp?email=<%= vendor.getVendorEmail() %>">
 
-        <h3><%= vendor.getBizName()%></h3>
+        <h3><%= vendor.getBusinessDetails().getBizName()%></h3>
         <p><%= vendor.getVendorName() %></p>
-        <p><%= vendor.getBizCategory() %></p>
+        <p><%= vendor.getBusinessDetails().getBizCategory() %></p>
 
     </a>
     <%

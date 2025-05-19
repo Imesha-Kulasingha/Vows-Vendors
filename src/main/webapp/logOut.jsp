@@ -12,6 +12,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Logout</title>
+    <link rel="stylesheet" href="css/logOut.css">
 </head>
 <body>
 <h2>You have been logged out</h2>

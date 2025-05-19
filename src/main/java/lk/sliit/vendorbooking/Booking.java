@@ -1,5 +1,7 @@
 package lk.sliit.vendorbooking;
 
+import lk.sliit.vendorbooking.vendorClass.Vendor;
+
 public class Booking {
     private Vendor vendor;
     private User user;

@@ -17,5 +17,9 @@
         System.out.println("Error: " + e.getMessage());
     }
 %>
+<head>
+    <link rel="stylesheet" href="css/bookVendor.css">
+
+</head>
 <p>Your booking is pending. Vendor will accept or deny soon.</p>
 <a href="index.jsp">Back to Dashboard</a>

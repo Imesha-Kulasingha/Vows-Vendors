@@ -1,5 +1,5 @@
 package lk.sliit.vendorbooking.DSA;
-import lk.sliit.vendorbooking.Vendor;
+import lk.sliit.vendorbooking.vendorClass.Vendor;
 
 public class Node {
     Vendor data;

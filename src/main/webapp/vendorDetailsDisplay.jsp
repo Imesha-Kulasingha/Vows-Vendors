@@ -1,4 +1,4 @@
-<%@ page import="lk.sliit.vendorbooking.Vendor" %>
+<%@ page import="lk.sliit.vendorbooking.vendorClass.Vendor" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vendor List</title>
+    <link rel="stylesheet" href="css/vendorDetailsDisplay.css">
 </head>
 <body>
 <h2>Vendor List</h2>
@@ -48,19 +49,19 @@
         <td><%= vendor.getVendorAddress() %></td>
         <td><%= vendor.getVendorContactName() %></td>
         <td><%= vendor.getVendorPhone() %></td>
-        <td><%= vendor.getBizName() %></td>
-        <td><%= vendor.getBizAddress() %></td>
-        <td><%= vendor.getBizCategory() %></td>
-        <td><%= vendor.getServiceDescription() %></td>
-        <td><%= vendor.getPriceRange() %></td>
-        <td><%= vendor.getAvailableDays() %></td>
-        <td><%= vendor.getAvailableTime() %></td>
-        <td><%= vendor.getServiceArea() %></td>
-        <td><%= vendor.getSpecialPackages() %></td>
+        <td><%= vendor.getBusinessDetails().getBizName() %></td>
+        <td><%= vendor.getBusinessDetails().getBizAddress() %></td>
+        <td><%= vendor.getBusinessDetails().getBizCategory() %></td>
+        <td><%= vendor.getServiceDetails().getServiceDescription() %></td>
+        <td><%= vendor.getServiceDetails().getPriceRange() %></td>
+        <td><%= vendor.getServiceDetails().getAvailableDays() %></td>
+        <td><%= vendor.getServiceDetails().getAvailableTime() %></td>
+        <td><%= vendor.getServiceDetails().getServiceArea() %></td>
+        <td><%= vendor.getServiceDetails().getSpecialPackages() %></td>
         <td><%= vendor.getPortfolio() %></td>
-        <td><%= vendor.getTnc() %></td>
-        <td><%= vendor.getPictures() %></td>
-        <td><%= vendor.getSpecialRequirements() %></td>
+        <td><%= vendor.getPortfolio().getTnC() %></td>
+        <td><%= vendor.getPortfolio().getPictures() %></td>
+        <td><%= vendor.getRequirements().getSpecialRequirements() %></td>
     </tr>
     <%
         }

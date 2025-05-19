@@ -6,6 +6,9 @@
     BookingService bookingService = new BookingService();
     List<Booking> allBookings = bookingService.getAllBookings();
 %>
+<head>
+    <link rel="stylesheet" href="css/myBooking.css">
+</head>
 
 <h2>All Bookings</h2>
 <table border="1" cellpadding="10" cellspacing="0">
@@ -23,7 +26,7 @@
     <%
         for (Booking booking : allBookings) {
             String vendorID = booking.getVendor().getVendorNIC();
-            String vendorName = booking.getVendor().getBizName();
+            String vendorName = booking.getVendor().getBusinessDetails().getBizName();
             String vendorEmail = booking.getVendor().getVendorEmail();
             String userName = booking.getUser().getUserName();
             String userEmail = booking.getUser().getEmail();

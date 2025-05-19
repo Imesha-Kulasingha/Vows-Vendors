@@ -1,4 +1,4 @@
-<%@ page import="lk.sliit.vendorbooking.Vendor" %>
+<%@ page import="lk.sliit.vendorbooking.vendorClass.Vendor" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
 <%
@@ -23,6 +23,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Vendor Profile</title>
+    <link rel="stylesheet" href="css/vendorProfile.css">
 </head>
 <body>
 
@@ -43,30 +44,30 @@
 
 <%-- Display the business details --%>
 <h3>Business Information</h3>
-<p><strong>Business Name:</strong> <%= vendor.getBizName() %></p>
-<p><strong>Business Address:</strong> <%= vendor.getBizAddress() %></p>
-<p><strong>License Number:</strong> <%= vendor.getBizLicenceNumber() %></p>
-<p><strong>Business Category:</strong> <%= vendor.getBizCategory() %></p>
-<p><strong>Social Media Links:</strong> <%= vendor.getSocialMediaLinks() %></p>
+<p><strong>Business Name:</strong> <%= vendor.getBusinessDetails().getBizName() %></p>
+<p><strong>Business Address:</strong> <%= vendor.getBusinessDetails().getBizAddress() %></p>
+<p><strong>License Number:</strong> <%= vendor.getBusinessDetails().getBizLicenceNumber() %></p>
+<p><strong>Business Category:</strong> <%= vendor.getBusinessDetails().getBizCategory() %></p>
+<p><strong>Social Media Links:</strong> <%= vendor.getBusinessDetails().getSocialMediaLinks() %></p>
 
 <%-- Display the service details --%>
 <h3>Service Information</h3>
-<p><strong>Service Description:</strong> <%= vendor.getServiceDescription() %></p>
-<p><strong>Price Range:</strong> <%= vendor.getPriceRange() %></p>
-<p><strong>Available Days:</strong> <%= vendor.getAvailableDays() %></p>
-<p><strong>Available Time:</strong> <%= vendor.getAvailableTime() %></p>
-<p><strong>Service Area:</strong> <%= vendor.getServiceArea() %></p>
-<p><strong>Special Packages:</strong> <%= vendor.getSpecialPackages() %></p>
+<p><strong>Service Description:</strong> <%= vendor.getServiceDetails().getServiceDescription() %></p>
+<p><strong>Price Range:</strong> <%= vendor.getServiceDetails().getPriceRange() %></p>
+<p><strong>Available Days:</strong> <%= vendor.getServiceDetails().getAvailableDays() %></p>
+<p><strong>Available Time:</strong> <%= vendor.getServiceDetails().getAvailableTime() %></p>
+<p><strong>Service Area:</strong> <%= vendor.getServiceDetails().getServiceArea() %></p>
+<p><strong>Special Packages:</strong> <%= vendor.getServiceDetails().getSpecialPackages() %></p>
 
 <%-- Display the portfolio and other media --%>
 <h3>Portfolio</h3>
 <p><strong>Portfolio:</strong> <%= vendor.getPortfolio() %></p>
-<p><strong>Terms and Conditions:</strong> <%= vendor.getTnc() %></p>
-<p><strong>Pictures:</strong> <%= vendor.getPictures() %></p>
+<p><strong>Terms and Conditions:</strong> <%= vendor.getPortfolio().getTnC() %></p>
+<p><strong>Pictures:</strong> <%= vendor.getPortfolio().getPictures() %></p>
 
 <%-- Display special requirements --%>
 <h3>Special Requirements</h3>
-<p><%= vendor.getSpecialRequirements() %></p>
+<p><%= vendor.getRequirements().getSpecialRequirements() %></p>
 
 <a href="index.jsp">return to home page</a>
 

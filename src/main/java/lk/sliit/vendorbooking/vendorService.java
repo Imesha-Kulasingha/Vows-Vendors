@@ -1,6 +1,7 @@
 package lk.sliit.vendorbooking;
 
 import lk.sliit.vendorbooking.DSA.VendorLinkedList;
+import lk.sliit.vendorbooking.vendorClass.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,21 +23,21 @@ public class vendorService implements VendorInterface {
                     + vendor1.getVendorAddress() + "', '"
                     + vendor1.getVendorContactName() + "', '"
                     + vendor1.getVendorPhone() + "', '"
-                    + vendor1.getBizName() + "', '"
-                    + vendor1.getBizAddress() + "', '"
-                    + vendor1.getBizLicenceNumber() + "', '"
-                    + vendor1.getBizCategory() + "', '"
-                    + vendor1.getSocialMediaLinks() + "', '"
-                    + vendor1.getServiceDescription() + "', '"
-                    + vendor1.getPriceRange() + "', '"
-                    + vendor1.getAvailableDays() + "', '"
-                    + vendor1.getAvailableTime() + "', '"
-                    + vendor1.getServiceArea() + "', '"
-                    + vendor1.getSpecialPackages() + "', '"
+                    + vendor1.getBusinessDetails().getBizName() + "', '"
+                    + vendor1.getBusinessDetails().getBizAddress() + "', '"
+                    + vendor1.getBusinessDetails().getBizLicenceNumber() + "', '"
+                    + vendor1.getBusinessDetails().getBizCategory() + "', '"
+                    + vendor1.getBusinessDetails().getSocialMediaLinks() + "', '"
+                    + vendor1.getServiceDetails().getServiceDescription() + "', '"
+                    + vendor1.getServiceDetails().getPriceRange() + "', '"
+                    + vendor1.getServiceDetails().getAvailableDays() + "', '"
+                    + vendor1.getServiceDetails().getAvailableTime() + "', '"
+                    + vendor1.getServiceDetails().getServiceArea() + "', '"
+                    + vendor1.getServiceDetails().getSpecialPackages() + "', '"
                     + vendor1.getPortfolio() + "', '"
-                    + vendor1.getTnc() + "', '"
-                    + vendor1.getPictures() + "', '"
-                    + vendor1.getSpecialRequirements() + "')";
+                    + vendor1.getPortfolio().getTnC() + "', '"
+                    + vendor1.getPortfolio().getPictures() + "', '"
+                    + vendor1.getRequirements().getSpecialRequirements() + "')";
 
             Statement s1= DBconnect.getConnection().createStatement();
             System.out.println("Executing query: " + query);
@@ -65,19 +66,39 @@ public class vendorService implements VendorInterface {
         v.setVendorPassword(password);
 
         // Business Details
-        v.setBizName(bizName);
-        v.setBizAddress(bizAddress);
-        v.setBizLicenceNumber(bizLicenceNumber);
-        v.setBizCategory(bizCategory);
-        v.setSocialMediaLinks(socialMediaLinks);
+        //v.setBizName(bizName);
+        //v.setBizAddress(bizAddress);
+        //v.setBizLicenceNumber(bizLicenceNumber);
+        //v.setBizCategory(bizCategory);
+        //v.setSocialMediaLinks(socialMediaLinks);
+        BusinessDetails bd = new BusinessDetails();
+        bd.setBizName(bizName);
+        bd.setBizAddress(bizAddress);
+        bd.setBizLicenceNumber(bizLicenceNumber);
+        bd.setBizCategory(bizCategory);
+        bd.setSocialMediaLinks(socialMediaLinks);
+
+        v.setBusinessDetails(bd);
+
 
         // Services
-        v.setServiceDescription(serviceDescription);
-        v.setPriceRange(priceRange);
-        v.setAvailableDays(availableDays);
-        v.setAvailableTime(availableTime);
-        v.setServiceArea(serviceArea);
-        v.setSpecialPackages(specialPackages);
+        //v.setServiceDescription(serviceDescription);
+        //v.setPriceRange(priceRange);
+        //v.setAvailableDays(availableDays);
+        //v.setAvailableTime(availableTime);
+        //v.setServiceArea(serviceArea);
+        //v.setSpecialPackages(specialPackages);
+
+
+        ServiceDetails sd = new ServiceDetails();
+        sd.setServiceDescription(serviceDescription);
+        sd.setPriceRange(priceRange);
+        sd.setAvailableDays(availableDays);
+        sd.setAvailableTime(availableTime);
+        sd.setServiceArea(serviceArea);
+        sd.setSpecialPackages(specialPackages);
+
+        v.setServiceDetails(sd);
 
         // Register using existing method
         registerVendor(v);
@@ -105,33 +126,68 @@ public class vendorService implements VendorInterface {
                 v.setVendorPhone(rs.getString("contactPerson"));
 
                 // Business Details
-                v.setBizName(rs.getString("bizName"));
-                v.setBizAddress(rs.getString("bizAddress"));
-                v.setBizLicenceNumber(rs.getString("bizLicenceNumber"));
-                v.setBizCategory(rs.getString("bizCategory"));
-                v.setSocialMediaLinks(rs.getString("socialMediaLinks"));
+                //v.setBizName(rs.getString("bizName"));
+                //v.setBizAddress(rs.getString("bizAddress"));
+                //v.setBizLicenceNumber(rs.getString("bizLicenceNumber"));
+                //v.setBizCategory(rs.getString("bizCategory"));
+                //v.setSocialMediaLinks(rs.getString("socialMediaLinks"));
 
                 // Services
-                v.setServiceDescription(rs.getString("serviceDescription"));
-                v.setPriceRange(rs.getInt("priceRange"));
-                v.setAvailableDays(rs.getString("availableDays"));
-                v.setAvailableTime(rs.getString("availableTime"));
-                v.setServiceArea(rs.getString("serviceArea"));
-                v.setSpecialPackages(rs.getString("specialPackages"));
+                //v.setServiceDescription(rs.getString("serviceDescription"));
+                //v.setPriceRange(rs.getInt("priceRange"));
+                //v.setAvailableDays(rs.getString("availableDays"));
+                //v.setAvailableTime(rs.getString("availableTime"));
+                //v.setServiceArea(rs.getString("serviceArea"));
+                //v.setSpecialPackages(rs.getString("specialPackages"));
 
                 // Portfolio
-                v.setPortfolio(rs.getString("portfolio"));
-                v.setTnc(rs.getString("tncDoc"));
-                v.setPictures(rs.getString("picture"));
+                //v.setPortfolio(rs.getString("portfolio"));
+                //v.setTnc(rs.getString("tncDoc"));
+                //v.setPictures(rs.getString("picture"));
 
                 // Additional Requirements
-                v.setSpecialRequirements(rs.getString("specialRequirements"));
+                //v.setSpecialRequirements(rs.getString("specialRequirements"));
+
+
+
+                // Business Details
+                BusinessDetails bd = new BusinessDetails();
+                bd.setBizName(rs.getString("bizName"));
+                bd.setBizAddress(rs.getString("bizAddress"));
+                bd.setBizLicenceNumber(rs.getString("bizLicenceNumber"));
+                bd.setBizCategory(rs.getString("bizCategory"));
+                bd.setSocialMediaLinks(rs.getString("socialMediaLinks"));
+                v.setBusinessDetails(bd);
+
+                // Service Details
+                ServiceDetails sd = new ServiceDetails();
+                sd.setServiceDescription(rs.getString("serviceDescription"));
+                sd.setPriceRange(rs.getInt("priceRange"));
+                sd.setAvailableDays(rs.getString("availableDays"));
+                sd.setAvailableTime(rs.getString("availableTime"));
+                sd.setServiceArea(rs.getString("serviceArea"));
+                sd.setSpecialPackages(rs.getString("specialPackages"));
+                v.setServiceDetails(sd);
+
+                // Portfolio
+                Portfolio p = new Portfolio();
+                p.setPortfolio(rs.getString("portfolio"));
+                p.setTnC(rs.getString("tncDoc"));
+                p.setPictures(rs.getString("picture"));
+                v.setPortfolio(p);
+
+                // Additional Requirements
+                Requirements r = new Requirements();
+                r.setSpecialRequirements(rs.getString("specialRequirements"));
+                v.setRequirements(r);
+
                 // Debugging: print out vendor details
                 System.out.println("Retrieved Vendor: " + v.getVendorName());
 
                 list.add(v);
-                return vendorList.getAll();
+                //return vendorList.getAll();
             }
+            return vendorList.getAll();
 
         } catch (SQLException e) {
             // Log the exception or rethrow it as needed
@@ -189,27 +245,61 @@ public class vendorService implements VendorInterface {
                 specificVendor.setVendorPhone(rs.getString("contactNumber"));
 
                 // Business Details
-                specificVendor.setBizName(rs.getString("bizName"));
-                specificVendor.setBizAddress(rs.getString("bizAddress"));
-                specificVendor.setBizLicenceNumber(rs.getString("bizLicenceNumber"));
-                specificVendor.setBizCategory(rs.getString("bizCategory"));
-                specificVendor.setSocialMediaLinks(rs.getString("socialMediaLinks"));
+                //specificVendor.setBizName(rs.getString("bizName"));
+                //specificVendor.setBizAddress(rs.getString("bizAddress"));
+                //specificVendor.setBizLicenceNumber(rs.getString("bizLicenceNumber"));
+                //specificVendor.setBizCategory(rs.getString("bizCategory"));
+                //specificVendor.setSocialMediaLinks(rs.getString("socialMediaLinks"));
 
                 // Services
-                specificVendor.setServiceDescription(rs.getString("serviceDescription"));
-                specificVendor.setPriceRange(rs.getInt("priceRange"));
-                specificVendor.setAvailableDays(rs.getString("availableDays"));
-                specificVendor.setAvailableTime(rs.getString("availableTime"));
-                specificVendor.setServiceArea(rs.getString("serviceArea"));
-                specificVendor.setSpecialPackages(rs.getString("specialPackages"));
+                //specificVendor.setServiceDescription(rs.getString("serviceDescription"));
+                //specificVendor.setPriceRange(rs.getInt("priceRange"));
+                //specificVendor.setAvailableDays(rs.getString("availableDays"));
+                //specificVendor.setAvailableTime(rs.getString("availableTime"));
+                //specificVendor.setServiceArea(rs.getString("serviceArea"));
+                //specificVendor.setSpecialPackages(rs.getString("specialPackages"));
 
                 // Portfolio
-                specificVendor.setPortfolio(rs.getString("portfolio"));
-                specificVendor.setTnc(rs.getString("tncDoc"));
-                specificVendor.setPictures(rs.getString("picture"));
+                //specificVendor.setPortfolio(rs.getString("portfolio"));
+                //specificVendor.setTnc(rs.getString("tncDoc"));
+                //specificVendor.setPictures(rs.getString("picture"));
 
                 // Additional Requirements
-                specificVendor.setSpecialRequirements(rs.getString("specialRequirements"));
+                //specificVendor.setSpecialRequirements(rs.getString("specialRequirements"));
+
+
+// Business Details
+                BusinessDetails bd = new BusinessDetails();
+                bd.setBizName(rs.getString("bizName"));
+                bd.setBizAddress(rs.getString("bizAddress"));
+                bd.setBizLicenceNumber(rs.getString("bizLicenceNumber"));
+                bd.setBizCategory(rs.getString("bizCategory"));
+                bd.setSocialMediaLinks(rs.getString("socialMediaLinks"));
+                specificVendor.setBusinessDetails(bd);
+
+// Services
+                ServiceDetails sd = new ServiceDetails();
+                sd.setServiceDescription(rs.getString("serviceDescription"));
+                sd.setPriceRange(rs.getInt("priceRange"));
+                sd.setAvailableDays(rs.getString("availableDays"));
+                sd.setAvailableTime(rs.getString("availableTime"));
+                sd.setServiceArea(rs.getString("serviceArea"));
+                sd.setSpecialPackages(rs.getString("specialPackages"));
+                specificVendor.setServiceDetails(sd);
+
+// Portfolio
+                Portfolio pf = new Portfolio();
+                pf.setPortfolio(rs.getString("portfolio"));
+                pf.setTnC(rs.getString("tncDoc"));
+                pf.setPictures(rs.getString("picture"));
+                specificVendor.setPortfolio(pf);
+
+// Additional Requirements
+                Requirements r = new Requirements();
+                r.setSpecialRequirements(rs.getString("specialRequirements"));
+                specificVendor.setRequirements(r);
+
+
             }
 
         } catch (Exception e) {
@@ -241,26 +331,61 @@ public class vendorService implements VendorInterface {
                 vendor.setVendorPhone(rs.getString("contactNumber"));
                 vendor.setVendorContactName(rs.getString("contactPerson"));
 
-                vendor.setBizName(rs.getString("bizName"));
-                vendor.setBizAddress(rs.getString("bizAddress"));
-                vendor.setBizLicenceNumber(rs.getString("bizLicenceNumber"));
-                vendor.setBizCategory(rs.getString("bizCategory"));
-                vendor.setSocialMediaLinks(rs.getString("socialMediaLinks"));
+                //vendor.setBizName(rs.getString("bizName"));
+                //vendor.setBizAddress(rs.getString("bizAddress"));
+                //vendor.setBizLicenceNumber(rs.getString("bizLicenceNumber"));
+                //vendor.setBizCategory(rs.getString("bizCategory"));
+                //vendor.setSocialMediaLinks(rs.getString("socialMediaLinks"));
 
-                vendor.setServiceDescription(rs.getString("serviceDescription"));
-                vendor.setPriceRange(rs.getInt("priceRange"));
-                vendor.setAvailableDays(rs.getString("availableDays"));
-                vendor.setAvailableTime(rs.getString("availableTime"));
-                vendor.setServiceArea(rs.getString("serviceArea"));
-                vendor.setSpecialPackages(rs.getString("specialPackages"));
+                //vendor.setServiceDescription(rs.getString("serviceDescription"));
+                //vendor.setPriceRange(rs.getInt("priceRange"));
+                //vendor.setAvailableDays(rs.getString("availableDays"));
+                //vendor.setAvailableTime(rs.getString("availableTime"));
+                //vendor.setServiceArea(rs.getString("serviceArea"));
+                //vendor.setSpecialPackages(rs.getString("specialPackages"));
 
-                vendor.setPortfolio(rs.getString("portfolio"));
-                vendor.setTnc(rs.getString("tncDoc"));
-                vendor.setPictures(rs.getString("picture"));
+                //vendor.setPortfolio(rs.getString("portfolio"));
+                //vendor.setTnc(rs.getString("tncDoc"));
+                //vendor.setPictures(rs.getString("picture"));
 
-                vendor.setSpecialRequirements(rs.getString("specialRequirements"));
+                //vendor.setSpecialRequirements(rs.getString("specialRequirements"));
 
+                //vendors.add(vendor);
+
+                // Business Details
+                BusinessDetails biz = new BusinessDetails();
+                biz.setBizName(rs.getString("bizName"));
+                biz.setBizAddress(rs.getString("bizAddress"));
+                biz.setBizLicenceNumber(rs.getString("bizLicenceNumber"));
+                biz.setBizCategory(rs.getString("bizCategory"));
+                biz.setSocialMediaLinks(rs.getString("socialMediaLinks"));
+                vendor.setBusinessDetails(biz);
+
+// Service Details
+                ServiceDetails service = new ServiceDetails();
+                service.setServiceDescription(rs.getString("serviceDescription"));
+                service.setPriceRange(rs.getInt("priceRange"));
+                service.setAvailableDays(rs.getString("availableDays"));
+                service.setAvailableTime(rs.getString("availableTime"));
+                service.setServiceArea(rs.getString("serviceArea"));
+                service.setSpecialPackages(rs.getString("specialPackages"));
+                vendor.setServiceDetails(service);
+
+// Portfolio
+                Portfolio pf = new Portfolio();
+                pf.setPortfolio(rs.getString("portfolio"));
+                pf.setTnC(rs.getString("tncDoc"));
+                pf.setPictures(rs.getString("picture"));
+                vendor.setPortfolio(pf);
+
+// Requirements
+                Requirements req = new Requirements();
+                req.setSpecialRequirements(rs.getString("specialRequirements"));
+                vendor.setRequirements(req);
+
+// Add to list
                 vendors.add(vendor);
+
             }
         } catch (Exception e) {
             e.printStackTrace();

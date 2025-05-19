@@ -3,6 +3,8 @@ package lk.sliit.vendorbooking;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import lk.sliit.vendorbooking.vendorClass.Vendor;
+import lk.sliit.vendorbooking.vendorClass.BusinessDetails;  // Import if needed
 
 import java.io.IOException;
 
@@ -31,21 +33,26 @@ public class BookingServlet extends HttpServlet {
             Vendor vendor = new Vendor();
             vendor.setVendorNIC(vendorID);
             vendor.setVendorEmail(vendorEmail);
-            vendor.setBizName(vendorName);
+
+            // Initialize BusinessDetails if null and set business name
+            if (vendor.getBusinessDetails() == null) {
+                vendor.setBusinessDetails(new BusinessDetails());
+            }
+            vendor.getBusinessDetails().setBizName(vendorName);
 
             User user = new User();
             user.setUserName(userName);
             user.setEmail(userEmail);
 
             Booking booking = new Booking(vendor, user, price);
-            booking.setStatus("Pending"); // ✅ Set booking status
+            booking.setStatus("Pending"); // Set booking status
 
             bookingService.createBooking(booking);
 
             HttpSession session = request.getSession();
             session.setAttribute("bookingMessage", userName + " requested this service. Your booking is pending.");
 
-            // ✅ Redirect to booking list page
+            // Redirect to bookings page
             response.sendRedirect("myBookings.jsp");
 
         } catch (Exception e) {

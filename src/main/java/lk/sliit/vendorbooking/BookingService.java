@@ -1,5 +1,9 @@
 package lk.sliit.vendorbooking;
 
+import lk.sliit.vendorbooking.vendorClass.Vendor;
+import lk.sliit.vendorbooking.vendorClass.BusinessDetails;
+import lk.sliit.vendorbooking.User;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +21,8 @@ public class BookingService {
 
             System.out.println("Booking in createBooking method with price: " + booking.getPrice());
 
-            String query = "INSERT INTO vendorbookings VALUES ('"
-                    + booking.getVendor().getBizName() + "', '"
+            String query = "INSERT INTO vendorbookings (bizName, vendorID, vendorEmail, userName, userEmail, price) VALUES ('"
+                    + booking.getVendor().getBusinessDetails().getBizName() + "', '"
                     + booking.getVendor().getVendorNIC() + "', '"
                     + booking.getVendor().getVendorEmail() + "', '"
                     + booking.getUser().getUserName() + "', '"
@@ -51,7 +55,11 @@ public class BookingService {
                 System.out.println("Processing a booking row...");
 
                 Vendor vendor = new Vendor();
-                vendor.setBizName(rs.getString("bizName"));
+                // Create and set BusinessDetails object inside Vendor
+                BusinessDetails businessDetails = new BusinessDetails();
+                businessDetails.setBizName(rs.getString("bizName"));
+                vendor.setBusinessDetails(businessDetails);
+
                 vendor.setVendorNIC(rs.getString("vendorID"));
                 vendor.setVendorEmail(rs.getString("vendorEmail"));
 
@@ -64,7 +72,7 @@ public class BookingService {
                 Booking booking = new Booking(vendor, user, price);
                 bookings.add(booking);
 
-                System.out.println("Added booking: " + vendor.getBizName() + " | " + user.getUserName());
+                System.out.println("Added booking: " + businessDetails.getBizName() + " | " + user.getUserName());
             }
 
         } catch (Exception e) {
